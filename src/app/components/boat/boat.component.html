@@ -1,0 +1,132 @@
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="Boat"></i></div>
+                            Boat List
+                        </h1>
+                    </div>
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <a class="nav-link" href="#!" data-bs-toggle="modal" data-bs-target="#modalBoat"
+                                (click)="resetCurrentBoat()">
+                                <i-feather name="plus"></i-feather><span>Create Boat</span>
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody cdkDropList>
+                        <tr *ngFor="let boat of boatsPaginate" cdkDrag cdkDragLockAxis="y">
+                            <td>{{boat.name}}</td>
+                            <td>{{boat.description}}</td>
+                            <td>
+                                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="#!"
+                                    (click)="populateBoatId(boat.id)" style="padding-top: 5px !important;"
+                                    data-bs-toggle="modal" data-bs-target="#modalBoat">
+                                    <i-feather name="edit"></i-feather>
+                                </a>
+                                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="#!"
+                                    (click)="populateBoatId(boat.id)" style="padding-top: 5px !important;"
+                                    data-bs-toggle="modal" data-bs-target="#deleteBoat">
+                                    <i-feather name="trash-2"></i-feather>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                        (pageChange)="refreshBoats()">
+                    </ngb-pagination>
+                    <select class="form-select" style="width: auto" [(ngModel)]="pageSize"
+                        (ngModelChange)="refreshBoats()">
+                        <option [ngValue]="2">2 items per page</option>
+                        <option [ngValue]="4">4 items per page</option>
+                        <option [ngValue]="6">6 items per page</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Modal delete -->
+            <div class="modal fade" id="deleteBoat" tabindex="-1" role="dialog" aria-labelledby="deleteBoat"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteBoat">Are you sure to delete this boat</h5>
+                            <button class="btn-close" type="button" #closebuttondelete data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                                data-bs-dismiss="modal">Close</button><button class="btn btn-danger" type="button"
+                                (click)="removeBoat()">Delete boat</button></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal boat-->
+            <div class="modal fade" id="modalBoat" tabindex="-1" role="dialog" aria-labelledby="modalBoat"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalBoat">{{boat_id ? "Boat Detail" : "New Boat"}}</h5>
+                            <button class="btn-close"  #closebutton type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                          
+                        </div>
+
+                        <form [formGroup]="form">
+                            <div class="modal-boy modal-boat-body">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" [formControlName]="'name'" class="form-control"
+                                            [ngClass]="diplayError('name')" />
+                                        <div *ngIf="formControls?.['name']?.errors" class="invalid-feedback">
+                                            <div *ngIf="formControls?.['name']?.errors?.['required']">Name is
+                                                required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" [formControlName]="'description'" class="form-control"
+                                            [ngClass]="diplayError('description')" />
+                                        <div *ngIf="formControls?.['description']?.errors" class="invalid-feedback">
+                                            <div *ngIf="formControls?.['description']?.errors?.['required']">Description
+                                                is
+                                                required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                                    data-bs-dismiss="modal">Close</button><button [disabled]="!form.valid"
+                                    class="btn btn-success" type="button"
+                                    (click)="boat_id ? updateBoat(): createBoat()">{{boat_id ? "Update boat" : "New boat"}}</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</main>
