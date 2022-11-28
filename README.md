@@ -1,7 +1,7 @@
 # openweb-manageboat-front
 # Boat management application
 
-Angular, boat management application in which one can:
+Angular, boat management application :
 - Each Boat has id, name, description
 - We can create, retrieve, update, delete Boats.
 
