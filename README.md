@@ -1,27 +1,23 @@
-# boatHtml
+# openweb-manageboat-front
+# Boat management application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
+Angular, boat management application in which one can:
+- Each Boat has id, name, description
+- We can create, retrieve, update, delete Boats.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Run Angular Client
+```
+npm install
+ng serve or npm start
 
-## Code scaffolding
+```
+The application will be accessible from the URL: http://localhost:4200/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Authentication
 
-## Build
+In order to authenticate to the application, you must enter the identifiers:
+login: user@openweb.com
+password: password
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![Login screen](https://github.com/salahOuar/openweb-manageboat-api/blob/main/src/main/resources/static/login.png)
